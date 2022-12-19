@@ -75,7 +75,7 @@ function placeMark(cell, currentClass) {
     cell.classList.add(currentClass);
 }
 function swapTurns() {
-    isPlayer_O_Turn = !isPlayer_O_Turn
+    isPlayer_O_Turn = !isPlayer_O_Turn;
 }
 
 // Hovering cursor function 
@@ -87,4 +87,13 @@ function setBoardHoverClass() {
     } else {
         boardElement.classList.add(PLAYER_X_CLASS);
     }
+}
+
+// Check winning function 
+function checkWin(CurrentClass) {
+    return WINNING_COMBINATIONS.some(combination => {
+        return combination.every(index => {
+            return cellElements[index].classList.contains(currentClass);
+        })
+    })
 }
