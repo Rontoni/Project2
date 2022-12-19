@@ -1,3 +1,5 @@
+
+// Players and winning combinations.
 const PLAYER_X_CLASS = 'x';
 const PLAYER_O_CLASS = 'circle';
 const WINNING_COMBINATIONS = [
@@ -10,3 +12,12 @@ const WINNING_COMBINATIONS = [
     [0, 4, 8],
     [2, 4, 6],
 ]
+
+// Values for board, winning message and restart button. 
+const cellElements = document.querySelectorAll('data-cell');
+const boardElement = document.getElementById('board');
+const winningMessageElement = document.getElementById('winningMessage');
+const restartButton = document.getElementById('restartButton');
+const winningMessageTextElement = document.getElementById('restartButton');
+let isPlayer_O_Turn = false
+
