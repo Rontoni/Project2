@@ -1,99 +1,102 @@
 
 // Players and winning combinations.
-const PLAYER_X_CLASS = 'x';
-const PLAYER_O_CLASS = 'circle';
+const X_CLASS = 'x'
+const CIRCLE_CLASS = 'circle'
 const WINNING_COMBINATIONS = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6]
 ]
 
 // Values for board, winning message and restart button. 
-const cellElements = document.querySelectorAll('data-cell');
-const boardElement = document.getElementById('board');
-const winningMessageElement = document.getElementById('winningMessage');
-const restartButton = document.getElementById('restartButton');
-const winningMessageTextElement = document.getElementById('restartButton');
-let isPlayer_O_Turn = false
+const cellElements = document.querySelectorAll('[data-cell]')
+const board = document.getElementById('board')
+const winningMessageElement = document.getElementById('winningMessage')
+const restartButton = document.getElementById('restartButton')
+const winningMessageTextElement = document.querySelector('[data-winning-message-text]')
+let circleTurn
 
 // Function for starting the game
-startGame() 
+startGame()
 
-    restartButton.addEventListener('click', startGame);
+restartButton.addEventListener('click', startGame)
 
-    function startGame() {
-        isPlayer_O_Turn = false;
-        cellElements.forEach(cell => {
-            cell.classList.remove(PLAYER_X_CLASS);
-            cell.classList.remove(PLAYER_O_CLASS);
-            cell.removeEventListener('click', handleCellClick);
-            cell.addEventListener('click', handleCellClick, { once: true})
-        })
-        setBoardHoverClass ()
-        winningMessageElement.classList.remove('show');
-    }
+function startGame() {
+  circleTurn = false
+  cellElements.forEach(cell => {
+    cell.classList.remove(X_CLASS)
+    cell.classList.remove(CIRCLE_CLASS)
+    cell.removeEventListener('click', handleClick)
+    cell.addEventListener('click', handleClick, { once: true })
+  })
+  setBoardHoverClass()
+  winningMessageElement.classList.remove('show')
+}
+
 
 // Function for mouse click events 
-function handleCellClick(e) {
-    const cell = e.target;
-    const currentClass = isPlayer_O_Turn ? PLAYER_O_CLASS : PLAYER_X_CLASS;
-    placeMark(cell, currentClass);
+function handleClick(e) {
+    const cell = e.target
+    const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS
+    placeMark(cell, currentClass)
     if (checkWin(currentClass)) {
-        endGame(false);
+      endGame(false)
     } else if (isDraw()) {
-        endGame(true)
+      endGame(true)
     } else {
-        swapTurns()
-        setBoardHoverClass()
+      swapTurns()
+      setBoardHoverClass()
     }
-}
+  }
 
 // Function for ending the game 
 function endGame(draw) {
     if (draw) {
-        winningMessageTextElement.innerText = "It's a draw!"
+      winningMessageTextElement.innerText = 'Draw!'
     } else {
-        winningMessageTextElement.innerText = `Player with ${isPlayer_O_Turn ? "O's" : "X's"} wins!`;
+      winningMessageTextElement.innerText = `${circleTurn ? "O's" : "X's"} Wins!`
     }
-    winningMessageElement.classList.add('show');
-}
+    winningMessageElement.classList.add('show')
+  }
+  
 
 // Function for a drawn game 
 function isDraw() {
     return [...cellElements].every(cell => {
-        return cell.classList.contains(PLAYER_X_CLASS) || cell.classList.contains(PLAYER_O_CLASS)
-    });
-}
+      return cell.classList.contains(X_CLASS) || cell.classList.contains(CIRCLE_CLASS)
+    })
+  }
+  
 
 // Functions for placing and swaping turns 
 function placeMark(cell, currentClass) {
-    cell.classList.add(currentClass);
-}
-function swapTurns() {
-    isPlayer_O_Turn = !isPlayer_O_Turn;
-}
-
+    cell.classList.add(currentClass)
+  }
+  function swapTurns() {
+    circleTurn = !circleTurn
+  }
+  
 // Hovering cursor function 
 function setBoardHoverClass() {
-    boardElement.classList.remove(PLAYER_X_CLASS);
-    boardElement.classList.remove(PLAYER_O_CLASS);
-    if (isPlayer_O_Turn) {
-        boardElement.classList.add(PLAYER_O_CLASS);
+    board.classList.remove(X_CLASS)
+    board.classList.remove(CIRCLE_CLASS)
+    if (circleTurn) {
+      board.classList.add(CIRCLE_CLASS)
     } else {
-        boardElement.classList.add(PLAYER_X_CLASS);
+      board.classList.add(X_CLASS)
     }
-}
+  }
 
 // Check winning function 
-function checkWin(CurrentClass) {
-    return WINNING_COMBINATIONS.some(combination => {
-        return combination.every(index => {
-            return cellElements[index].classList.contains(currentClass);
-        })
+function checkWin(currentClass) {
+  return WINNING_COMBINATIONS.some(combination => {
+    return combination.every(index => {
+      return cellElements[index].classList.contains(currentClass)
     })
+  })
 }
