@@ -42,7 +42,7 @@ body {
 }
 
 .box:hover {
-    background-color: #fb00ff7a;
+    background-color: lightblue;
 }
 
 .info {
@@ -109,7 +109,22 @@ body {
     transition: width 1s ease-in-out;
 }
 
-
+@media screen and (max-width: 950px)
+{
+    .gameContainer{
+        flex-wrap: wrap;
+    }
+    .gameInfo{
+        margin-top: 34px;
+    }
+    .gameInfo h1{
+        font-size: 1.5rem;
+    }
+    .container { 
+        grid-template-rows: repeat(3, 20vw);
+        grid-template-columns: repeat(3, 20vw);
+    }
+}
 
 
 
