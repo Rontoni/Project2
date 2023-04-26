@@ -11,15 +11,17 @@ The second click mars a square with an "O".
 The first one to get three of either "X" or "O" wins. 
 If no one gets three in a row it results in a draw!
 
-![TicTacToe](https://user-images.githubusercontent.com/115105625/208908998-ae2d22a5-c2ff-4a49-9bfc-f118cd90d4e1.png)
+
+![gameboard](https://user-images.githubusercontent.com/115105625/234570217-4405ffe6-0cdb-46ef-afa7-25b90b00eaeb.png)
 
 
 
-After a game is finished the winning screen appears for the first player. 
-The results are either a win, a loss or a draw. 
-The player then gets the option of restarting the game. 
+After a game is finished the finishing screen appears.
+The results are either a win, a loss or a draw for either player.
+The players then gets the option of restarting the game. 
 
-![draw](https://user-images.githubusercontent.com/115105625/208908922-97d659b8-9f7b-4d65-91e7-7411acb079dc.png)
+![gamescreen](https://user-images.githubusercontent.com/115105625/234570291-1653b99b-a997-448a-8f66-24f872a895d2.png)
+
 
 ## Features that could be implemented
 * An introduction screen for the game with more options
