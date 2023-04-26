@@ -48,7 +48,7 @@ Had some problems making the squares stick together as they where pulled apart i
 
 ### Javascript
 
-![javascript](https://user-images.githubusercontent.com/115105625/208909658-0bdbf020-6dd9-449c-a504-7fef849eb8fe.png)
+![metrics](https://user-images.githubusercontent.com/115105625/234573116-116f406c-f1fc-425f-9473-89844aaba950.png)
 
 
 ## Deployment
