@@ -12,7 +12,8 @@ The first one to get three of either "X" or "O" wins.
 If no one gets three in a row it results in a draw!
 
 
-![gameboard](https://user-images.githubusercontent.com/115105625/234570217-4405ffe6-0cdb-46ef-afa7-25b90b00eaeb.png)
+![gamescreen](https://user-images.githubusercontent.com/115105625/234572707-12e4f37f-ff07-480d-b731-fc91ef8b7524.png)
+
 
 
 
@@ -20,7 +21,8 @@ After a game is finished the finishing screen appears.
 The results are either a win, a loss or a draw for either player.
 The players then gets the option of restarting the game. 
 
-![gamescreen](https://user-images.githubusercontent.com/115105625/234570291-1653b99b-a997-448a-8f66-24f872a895d2.png)
+
+![endscreen](https://user-images.githubusercontent.com/115105625/234572741-5e3b3fab-a0f3-42e8-a249-419feb69b49a.png)
 
 
 ## Features that could be implemented
