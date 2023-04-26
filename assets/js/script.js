@@ -1,53 +1,107 @@
+let btnRef = document.querySelectorAll(".button-option");
+let popupRef = document.querySelector(".popup");
+let newgameBtn = document.getElementById("new-game");
+let restartBtn = document.getElementById("restart");
+let msgRef = document.getElementById("message");
 
-let turn = "X"
-let isgameover = false;
+// Winning patterns array
 
-// Function for turn changing 
+let winningPattern = [
+  [0, 1, 2],
+  [0, 3, 6],
+  [2, 5, 8],
+  [6, 7, 8],
+  [3, 4, 5],
+  [1, 4, 7],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+// X player starts
 
-const changeTurn = () => {
-  return turn === "X"? "O": "X"
-}
+let xTurn = true;
+let count = 0;
+const disableButtons = () => {
+  btnRef.forEach((element) => (element.disabled = true));
+  popupRef.classList.remove("hide");
+};
+//Enable all buttons (For New Game and Restart)
+const enableButtons = () => {
+  btnRef.forEach((element) => {
+    element.innerText = "";
+    element.disabled = false;
+  });
+  popupRef.classList.add("hide");
+};
 
-// Win checking Function
 
-const checkWin = () => {
-  let boxtext = document.getElementsByClassName('boxtext');
-  let wins = [
-      [0, 1, 2, 5, 5, 0],
-      [3, 4, 5, 5, 15, 0],
-      [6, 7, 8, 5, 25, 0],
-      [0, 3, 6, -5, 15, 90],
-      [1, 4, 7, 5, 15, 90],
-      [2, 5, 8, 15, 15, 90],
-      [0, 4, 8, 5, 15, 45],
-      [2, 4, 6, 5, 15, 135],
-  ]
-  wins.forEach(e => {
-      if((boxtext[e[0]].innerText === boxtext[e[1]].innerText) && (boxtext[e[2]].innerText === boxtext[e[1]].innerText) && (boxtext[e[0]].innerText !== "") ) {
-          music.play();
-          document.querySelector('.info').innerText = boxtext[e[0]].innerText + " Won"
-          isgameover = true
-          document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width = "200px";
-          document.querySelector(".line").style.transform = `translate(${e[3]}vw, ${e[4]}vw) rotate(${e[5]}deg)`
-          document.querySelector(".line").style.width = "20vw";
+// Player win function
+
+const winFunction = (letter) => {
+  disableButtons();
+  if (letter == "X") {
+    msgRef.innerHTML = "&#x1F389; <br> 'X' Wins";
+  } else {
+    msgRef.innerHTML = "&#x1F389; <br> 'O' Wins";
+  }
+};
+
+
+// Draw function
+
+const drawFunction = () => {
+  disableButtons();
+  msgRef.innerHTML = "&#x1F60E; <br> It's a Draw";
+};
+
+
+// Starting a new game
+
+newgameBtn.addEventListener("click", () => {
+  count = 0;
+  enableButtons();
+});
+restartBtn.addEventListener("click", () => {
+  count = 0;
+  enableButtons();
+});
+
+// Winning logic
+const winChecker = () => {
+
+  for (let i of winningPattern) {
+    let [element1, element2, element3] = [
+      btnRef[i[0]].innerText,
+      btnRef[i[1]].innerText,
+      btnRef[i[2]].innerText,
+    ];
+    if (element1 != "" && (element2 != "") & (element3 != "")) {
+      if (element1 == element2 && element2 == element3) {
+        winFunction(element1);
       }
-  })
-}
+    }
+  }
+};
 
 
-// Logic for the game 
 
-let boxes = document.getElementsByClassName("box");
-Array.from(boxes).forEach(element => {
-    let boxtext = element.querySelector('.boxtext');
-    element.addEventListener('click', () => {
-        if(boxtext.innerText === '') {
-            boxtext.innerText = turn;
-            turn = changeTurn();
-            checkWin();
-            if (!isgameover){
-                document.getElementsByClassName("info")[0].innerText  = "Turn for " + turn;
-            } 
-        }
-    })
-})
+// Displaying X and O 
+btnRef.forEach((element) => {
+  element.addEventListener("click", () => {
+    if (xTurn) {
+      xTurn = false;
+      element.innerText = "X";
+      element.disabled = true;
+    } else {
+      xTurn = true;
+      element.innerText = "O";
+      element.disabled = true;
+    }
+    count += 1;
+    if (count == 9) {
+      drawFunction();
+    }
+    winChecker();
+  });
+});
+
+window.onload = enableButtons;
